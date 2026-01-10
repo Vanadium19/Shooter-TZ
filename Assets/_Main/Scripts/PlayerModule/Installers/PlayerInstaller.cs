@@ -24,6 +24,9 @@ namespace PlayerModule
         [Header("Crouch Settings")]
         [SerializeField] private Transform upBodyPart;
 
+        [Header("Rotation Settings")]
+        [SerializeField] private float rotationSensitivity = 3f;
+
         private void OnValidate() => rigidbody ??= GetComponent<Rigidbody>();
 
         public override void InstallBindings()
@@ -47,6 +50,10 @@ namespace PlayerModule
             Container.BindInterfacesTo<GroundChecker>()
                 .AsSingle()
                 .WithArguments(overlapPoint, overlapRadius, overlapMask);
+
+            Container.BindInterfacesTo<RotationComponent>()
+                .AsSingle()
+                .WithArguments(transform, rotationSensitivity);
 
             Container.BindInterfacesTo<PlayerMovementController>()
                 .AsSingle()
