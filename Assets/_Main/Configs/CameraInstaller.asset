@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a95fd3123e84feaa2a2e9f6390717b6, type: 3}
   m_Name: CameraInstaller
   m_EditorClassIdentifier: CameraModule::CameraModule.CameraInstaller
-  _sensitivity: 100
+  _sensitivity: 125
   _verticalMinAngle: -30
   _verticalMaxAngle: 30

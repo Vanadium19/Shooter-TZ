@@ -1,4 +1,5 @@
 using ComponentsModule;
+using EntityModule;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +9,7 @@ namespace PlayerModule
     {
         [Header("References")]
         [SerializeField] private Rigidbody rigidbody;
+        [SerializeField] private Entity entity;
 
         [Header("Move Settings")]
         [SerializeField] private float moveSpeed = 3f;
@@ -23,6 +25,7 @@ namespace PlayerModule
 
         [Header("Crouch Settings")]
         [SerializeField] private Transform upBodyPart;
+        [SerializeField] private float deltaY = 0.5f;
 
         [Header("Rotation Settings")]
         [SerializeField] private float rotationSensitivity = 3f;
@@ -30,7 +33,11 @@ namespace PlayerModule
         [Header("Health Settings")]
         [SerializeField] private int maxHealth = 5;
 
-        private void OnValidate() => rigidbody ??= GetComponent<Rigidbody>();
+        private void OnValidate()
+        {
+            rigidbody ??= GetComponent<Rigidbody>();
+            entity ??= GetComponent<Entity>();
+        }
 
         public override void InstallBindings()
         {
@@ -44,7 +51,7 @@ namespace PlayerModule
 
             Container.BindInterfacesTo<CrouchComponent>()
                 .AsSingle()
-                .WithArguments(upBodyPart);
+                .WithArguments(upBodyPart, deltaY);
 
             Container.BindInterfacesTo<MoveComponent>()
                 .AsSingle()

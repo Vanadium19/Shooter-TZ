@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ComponentsModule
@@ -5,13 +6,20 @@ namespace ComponentsModule
     public class CrouchComponent : ICrouchComponent
     {
         private readonly Transform _upPart;
+        private readonly float _deltaY;
 
         private bool _isCrouching;
 
-        public CrouchComponent(Transform upPart)
+        public event Action Crouched;
+        public event Action Uncrouched;
+
+        public CrouchComponent(Transform upPart, float deltaY)
         {
             _upPart = upPart;
+            _deltaY = deltaY;
         }
+
+        public float DeltaY => _deltaY;
 
         public void Toggle()
         {
@@ -28,6 +36,7 @@ namespace ComponentsModule
 
             _isCrouching = true;
             _upPart.gameObject.SetActive(true);
+            Crouched?.Invoke();
         }
 
         public void Uncrouch()
@@ -37,6 +46,7 @@ namespace ComponentsModule
 
             _isCrouching = false;
             _upPart.gameObject.SetActive(false);
+            Uncrouched?.Invoke();
         }
     }
 }

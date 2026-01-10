@@ -2,6 +2,7 @@ namespace CameraModule
 {
     public interface ICameraMover
     {
-        void Move(float angle);
+        void RotateY(float angle);
+        void MoveY(float delta);
     }
 }

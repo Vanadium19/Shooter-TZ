@@ -19,7 +19,7 @@ namespace CameraModule
         private void Move()
         {
             var angle = _inputMap.CameraAngle;
-            _cameraMover.Move(angle);
+            _cameraMover.RotateY(angle);
         }
     }
 }
