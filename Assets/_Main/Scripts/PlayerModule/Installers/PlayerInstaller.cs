@@ -21,6 +21,9 @@ namespace PlayerModule
         [SerializeField] private float overlapRadius;
         [SerializeField] private LayerMask overlapMask;
 
+        [Header("Crouch Settings")]
+        [SerializeField] private Transform upBodyPart;
+
         private void OnValidate() => rigidbody ??= GetComponent<Rigidbody>();
 
         public override void InstallBindings()
@@ -32,6 +35,10 @@ namespace PlayerModule
             Container.BindInterfacesTo<JumpComponent>()
                 .AsSingle()
                 .WithArguments(jumpForce, jumpDelay, overlapMask);
+
+            Container.BindInterfacesTo<CrouchComponent>()
+                .AsSingle()
+                .WithArguments(upBodyPart);
 
             Container.BindInterfacesTo<MoveComponent>()
                 .AsSingle()

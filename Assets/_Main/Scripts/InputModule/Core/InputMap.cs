@@ -12,5 +12,6 @@ namespace InputModule
                + Input.GetAxisRaw(VerticalAxis) * Vector3.forward;
 
         public bool Jump => Input.GetKeyDown(KeyCode.Space);
+        public bool Crouch => Input.GetKeyDown(KeyCode.LeftControl);
     }
 }

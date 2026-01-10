@@ -6,5 +6,6 @@ namespace InputModule
     {
         Vector3 Direction { get; }
         bool Jump { get; }
+        bool Crouch { get; }
     }
 }
