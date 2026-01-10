@@ -26,7 +26,7 @@ namespace ComponentsModule
             var colliders = arrayPool.Rent(ColliderBufferSize);
 
             var size = Physics.OverlapSphereNonAlloc(_jumpPoint.position, _overlapRadius, colliders, _groundMask);
-            var result = size > 1;
+            var result = size > 0;
 
             arrayPool.Return(colliders);
             return result;

@@ -34,7 +34,7 @@ namespace PlayerModule
 
             Container.BindInterfacesTo<JumpComponent>()
                 .AsSingle()
-                .WithArguments(jumpForce, jumpDelay, overlapMask);
+                .WithArguments(jumpForce, jumpDelay);
 
             Container.BindInterfacesTo<CrouchComponent>()
                 .AsSingle()
@@ -46,7 +46,7 @@ namespace PlayerModule
 
             Container.BindInterfacesTo<GroundChecker>()
                 .AsSingle()
-                .WithArguments(overlapPoint, overlapRadius);
+                .WithArguments(overlapPoint, overlapRadius, overlapMask);
 
             Container.BindInterfacesTo<PlayerMovementController>()
                 .AsSingle()
