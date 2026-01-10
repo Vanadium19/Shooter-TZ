@@ -27,6 +27,9 @@ namespace PlayerModule
         [Header("Rotation Settings")]
         [SerializeField] private float rotationSensitivity = 3f;
 
+        [Header("Health Settings")]
+        [SerializeField] private int maxHealth = 5;
+
         private void OnValidate() => rigidbody ??= GetComponent<Rigidbody>();
 
         public override void InstallBindings()
@@ -54,6 +57,11 @@ namespace PlayerModule
             Container.BindInterfacesTo<RotationComponent>()
                 .AsSingle()
                 .WithArguments(transform, rotationSensitivity);
+
+            Container.BindInterfacesTo<HealthComponent>()
+                .AsSingle()
+                .WithArguments(maxHealth)
+                .NonLazy();
 
             Container.BindInterfacesTo<PlayerMovementController>()
                 .AsSingle()
