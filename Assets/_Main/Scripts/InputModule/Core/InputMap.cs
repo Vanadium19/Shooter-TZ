@@ -16,5 +16,6 @@ namespace InputModule
         public float RotationAngle => Input.GetAxisRaw(RotateAxis);
         public bool Jump => Input.GetKeyDown(KeyCode.Space);
         public bool Crouch => Input.GetKeyDown(KeyCode.LeftControl);
+        public bool Attack => Input.GetMouseButtonDown(0);
     }
 }

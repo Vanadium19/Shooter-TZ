@@ -63,7 +63,14 @@ namespace PlayerModule
                 .WithArguments(maxHealth)
                 .NonLazy();
 
+            Container.BindInterfacesTo<AttackComponent>()
+                .AsSingle();
+
             Container.BindInterfacesTo<PlayerMovementController>()
+                .AsSingle()
+                .NonLazy();
+
+            Container.BindInterfacesTo<PlayerAttackController>()
                 .AsSingle()
                 .NonLazy();
         }

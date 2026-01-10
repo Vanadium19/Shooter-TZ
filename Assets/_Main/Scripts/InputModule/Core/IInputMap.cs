@@ -8,5 +8,6 @@ namespace InputModule
         float RotationAngle { get; }
         bool Jump { get; }
         bool Crouch { get; }
+        bool Attack { get; }
     }
 }

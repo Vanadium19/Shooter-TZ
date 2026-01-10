@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -10,6 +11,8 @@ namespace EntityModule
         private DiContainer _container;
 
         private void Awake() => _container = context.Container;
+
+        private void OnValidate() => context ??= GetComponent<GameObjectContext>();
 
         public T Get<T>() where T : class => _container.Resolve<T>();
 
