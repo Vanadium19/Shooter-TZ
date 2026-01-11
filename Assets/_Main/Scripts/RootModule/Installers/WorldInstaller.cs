@@ -9,6 +9,9 @@ namespace RootModule
     public class WorldInstaller : MonoInstaller
     {
         [SerializeField] private Entity player;
+        [Header("Cover Peek Settings")]
+        [SerializeField] private float peekDistance = 0.4f;
+        [SerializeField] private float peekSpeed = 8f;
 
         public override void InstallBindings()
         {
@@ -19,6 +22,11 @@ namespace RootModule
 
             Container.BindInterfacesTo<CameraCrouchController>()
                 .AsSingle()
+                .NonLazy();
+
+            Container.BindInterfacesTo<CameraCoverPeekController>()
+                .AsSingle()
+                .WithArguments(peekDistance, peekSpeed)
                 .NonLazy();
         }
     }

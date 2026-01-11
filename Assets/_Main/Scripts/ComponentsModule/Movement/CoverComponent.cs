@@ -1,0 +1,52 @@
+using UnityEngine;
+
+namespace ComponentsModule
+{
+    public class CoverComponent : ICoverComponent
+    {
+        private readonly Transform _origin;
+        private readonly Rigidbody _rigidbody;
+        private readonly float _checkDistance;
+        private readonly float _coverOffset;
+        private readonly LayerMask _coverMask;
+
+        public CoverComponent(Transform origin, Rigidbody rigidbody, float checkDistance, float coverOffset,
+            LayerMask coverMask)
+        {
+            _origin = origin;
+            _rigidbody = rigidbody;
+            _checkDistance = checkDistance;
+            _coverOffset = coverOffset;
+            _coverMask = coverMask;
+        }
+
+        public bool IsInCover { get; private set; }
+        public Vector3 CoverNormal { get; private set; }
+
+        public bool TryEnterCover()
+        {
+            if (IsInCover)
+                return true;
+
+            if (!Physics.Raycast(_origin.position, _origin.forward, out var hit, _checkDistance, _coverMask))
+                return false;
+
+            CoverNormal = hit.normal;
+            IsInCover = true;
+
+            var targetPosition = hit.point + hit.normal * _coverOffset;
+            targetPosition.y = _rigidbody.position.y;
+            _rigidbody.position = targetPosition;
+
+            return true;
+        }
+
+        public void ExitCover()
+        {
+            if (!IsInCover)
+                return;
+
+            IsInCover = false;
+        }
+    }
+}

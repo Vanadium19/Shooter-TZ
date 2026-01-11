@@ -30,6 +30,12 @@ namespace PlayerModule
         [Header("Rotation Settings")]
         [SerializeField] private float rotationSensitivity = 3f;
 
+        [Header("Cover Settings")]
+        [SerializeField] private Transform coverOrigin;
+        [SerializeField] private float coverCheckDistance = 1.25f;
+        [SerializeField] private float coverOffset = 0.35f;
+        [SerializeField] private LayerMask coverMask;
+
         [Header("Health Settings")]
         [SerializeField] private int maxHealth = 5;
 
@@ -37,6 +43,7 @@ namespace PlayerModule
         {
             rigidbody ??= GetComponent<Rigidbody>();
             entity ??= GetComponent<Entity>();
+            coverOrigin ??= transform;
         }
 
         public override void InstallBindings()
@@ -64,6 +71,10 @@ namespace PlayerModule
             Container.BindInterfacesTo<RotationComponent>()
                 .AsSingle()
                 .WithArguments(transform, rotationSensitivity);
+
+            Container.BindInterfacesTo<CoverComponent>()
+                .AsSingle()
+                .WithArguments(coverOrigin, rigidbody, coverCheckDistance, coverOffset, coverMask);
 
             Container.BindInterfacesTo<HealthComponent>()
                 .AsSingle()

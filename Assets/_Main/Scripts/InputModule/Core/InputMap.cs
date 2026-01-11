@@ -18,6 +18,22 @@ namespace InputModule
         public float CameraAngle => Input.GetAxisRaw(CameraAxis);
         public bool Jump => Input.GetKeyDown(KeyCode.Space);
         public bool Crouch => Input.GetKeyDown(KeyCode.LeftControl);
+        public bool Cover => Input.GetKeyDown(KeyCode.F);
+        public float PeekDirection
+        {
+            get
+            {
+                var direction = 0f;
+
+                if (Input.GetKey(KeyCode.Q))
+                    direction -= 1f;
+
+                if (Input.GetKey(KeyCode.E))
+                    direction += 1f;
+
+                return direction;
+            }
+        }
         public bool Attack => Input.GetMouseButtonDown(0);
     }
 }
