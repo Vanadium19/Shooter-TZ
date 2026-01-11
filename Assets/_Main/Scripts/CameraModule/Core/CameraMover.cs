@@ -11,6 +11,8 @@ namespace CameraModule
         private readonly float _verticalMaxAngle;
 
         private float _verticalAngle;
+        private Vector3 _baseLocalPosition;
+        private Vector3 _offset;
 
         public CameraMover(float sensitivity, float verticalMinAngle, float verticalMaxAngle)
         {
@@ -20,6 +22,8 @@ namespace CameraModule
 
             _transform = Camera.main!.transform;
             _verticalAngle = _transform.localEulerAngles.x;
+            _baseLocalPosition = _transform.localPosition;
+            _offset = Vector3.zero;
         }
 
         public void RotateY(float angle)
@@ -34,9 +38,19 @@ namespace CameraModule
 
         public void MoveY(float delta)
         {
-            var position = _transform.position;
-            position.y += delta;
-            _transform.position = position;
+            _baseLocalPosition.y += delta;
+            UpdatePosition();
+        }
+
+        public void SetOffset(Vector3 offset)
+        {
+            _offset = offset;
+            UpdatePosition();
+        }
+
+        private void UpdatePosition()
+        {
+            _transform.localPosition = _baseLocalPosition + _offset;
         }
     }
 }

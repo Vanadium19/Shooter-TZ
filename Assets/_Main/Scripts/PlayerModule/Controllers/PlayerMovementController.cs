@@ -1,5 +1,6 @@
 using ComponentsModule;
 using InputModule;
+using UnityEngine;
 using Zenject;
 
 namespace PlayerModule
@@ -10,6 +11,7 @@ namespace PlayerModule
         private readonly IMoveComponent _mover;
         private readonly ICrouchComponent _croucher;
         private readonly IRotationComponent _rotater;
+        private readonly ICoverComponent _coverer;
 
         private readonly IInputMap _inputMap;
 
@@ -17,6 +19,7 @@ namespace PlayerModule
             IMoveComponent mover,
             ICrouchComponent croucher,
             IRotationComponent rotater,
+            ICoverComponent coverer,
             IInputMap inputMap)
         {
             _jumper = jumper;
@@ -24,6 +27,7 @@ namespace PlayerModule
             _inputMap = inputMap;
             _rotater = rotater;
             _croucher = croucher;
+            _coverer = coverer;
         }
 
         public void Tick()
@@ -31,12 +35,18 @@ namespace PlayerModule
             Move();
             Jump();
             Crouch();
+            Cover();
+            _coverer.UpdateCoverState();
             Rotate();
         }
 
         private void Move()
         {
             var direction = _inputMap.Direction;
+
+            if (_coverer.IsInCover)
+                direction = Vector3.ProjectOnPlane(direction, _coverer.CoverNormal);
+
             _mover.Move(direction);
         }
 
@@ -56,6 +66,17 @@ namespace PlayerModule
         {
             var angle = _inputMap.RotationAngle;
             _rotater.Rotate(angle);
+        }
+
+        private void Cover()
+        {
+            if (!_inputMap.Cover)
+                return;
+
+            if (_coverer.IsInCover)
+                _coverer.ExitCover();
+            else
+                _coverer.TryEnterCover();
         }
     }
 }
