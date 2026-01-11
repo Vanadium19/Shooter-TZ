@@ -8,20 +8,23 @@ namespace ComponentsModule
         private readonly Rigidbody _rigidbody;
         private readonly float _checkDistance;
         private readonly float _coverOffset;
+        private readonly float _maxDetachDistance;
         private readonly LayerMask _coverMask;
 
         public CoverComponent(Transform origin, Rigidbody rigidbody, float checkDistance, float coverOffset,
-            LayerMask coverMask)
+            float maxDetachDistance, LayerMask coverMask)
         {
             _origin = origin;
             _rigidbody = rigidbody;
             _checkDistance = checkDistance;
             _coverOffset = coverOffset;
+            _maxDetachDistance = maxDetachDistance;
             _coverMask = coverMask;
         }
 
         public bool IsInCover { get; private set; }
         public Vector3 CoverNormal { get; private set; }
+        private Vector3 CoverPoint { get; set; }
 
         public bool TryEnterCover()
         {
@@ -32,6 +35,7 @@ namespace ComponentsModule
                 return false;
 
             CoverNormal = hit.normal;
+            CoverPoint = hit.point;
             IsInCover = true;
 
             var targetPosition = hit.point + hit.normal * _coverOffset;
@@ -47,6 +51,20 @@ namespace ComponentsModule
                 return;
 
             IsInCover = false;
+        }
+
+        public void UpdateCoverState()
+        {
+            if (!IsInCover)
+                return;
+
+            var delta = _rigidbody.position - CoverPoint;
+            delta.y = 0f;
+
+            if (delta.sqrMagnitude <= _maxDetachDistance * _maxDetachDistance)
+                return;
+
+            ExitCover();
         }
     }
 }

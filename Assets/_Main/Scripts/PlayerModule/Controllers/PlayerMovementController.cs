@@ -36,6 +36,7 @@ namespace PlayerModule
             Jump();
             Crouch();
             Cover();
+            _coverer.UpdateCoverState();
             Rotate();
         }
 

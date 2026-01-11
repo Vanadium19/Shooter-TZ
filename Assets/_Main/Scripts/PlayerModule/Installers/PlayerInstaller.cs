@@ -34,6 +34,7 @@ namespace PlayerModule
         [SerializeField] private Transform coverOrigin;
         [SerializeField] private float coverCheckDistance = 1.25f;
         [SerializeField] private float coverOffset = 0.35f;
+        [SerializeField] private float coverDetachDistance = 1f;
         [SerializeField] private LayerMask coverMask;
 
         [Header("Health Settings")]
@@ -74,7 +75,7 @@ namespace PlayerModule
 
             Container.BindInterfacesTo<CoverComponent>()
                 .AsSingle()
-                .WithArguments(coverOrigin, rigidbody, coverCheckDistance, coverOffset, coverMask);
+                .WithArguments(coverOrigin, rigidbody, coverCheckDistance, coverOffset, coverDetachDistance, coverMask);
 
             Container.BindInterfacesTo<HealthComponent>()
                 .AsSingle()

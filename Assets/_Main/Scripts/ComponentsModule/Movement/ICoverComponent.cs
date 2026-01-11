@@ -8,5 +8,6 @@ namespace ComponentsModule
         Vector3 CoverNormal { get; }
         bool TryEnterCover();
         void ExitCover();
+        void UpdateCoverState();
     }
 }
