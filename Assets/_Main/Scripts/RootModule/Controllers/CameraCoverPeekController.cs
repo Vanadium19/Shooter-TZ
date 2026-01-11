@@ -35,9 +35,10 @@ namespace MainModule
 
         public void Tick()
         {
+            _coverComponent.UpdateCoverState();
             var targetOffset = Vector3.zero;
 
-            if (_coverComponent.IsInCover)
+            if (_coverComponent.IsCoverNearby)
             {
                 var direction = _inputMap.PeekDirection;
                 if (!Mathf.Approximately(direction, 0f))

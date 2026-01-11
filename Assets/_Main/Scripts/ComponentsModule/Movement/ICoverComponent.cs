@@ -4,10 +4,8 @@ namespace ComponentsModule
 {
     public interface ICoverComponent
     {
-        bool IsInCover { get; }
+        bool IsCoverNearby { get; }
         Vector3 CoverNormal { get; }
-        bool TryEnterCover();
-        void ExitCover();
         void UpdateCoverState();
     }
 }
