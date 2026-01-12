@@ -1,4 +1,5 @@
 using AIModule.States;
+using CoreModule;
 using FSMModule;
 using UnityEngine;
 using UnityEngine.AI;
@@ -16,21 +17,45 @@ namespace AIModule
         [SerializeField] private AutoStateMachineAsset stateMachineAsset;
 
         private IStateMachine<StateName> _stateMachine;
+        private IPauseService _pauseService;
 
         private void OnEnable() => _stateMachine?.OnEnter();
 
         private void Start() => CreateAI();
 
-        private void Update() => _stateMachine.OnUpdate(Time.deltaTime);
+        private void Update()
+        {
+            if (_pauseService.IsPaused)
+                return;
+
+            _stateMachine.OnUpdate(Time.deltaTime);
+        }
 
         private void OnDisable() => _stateMachine.OnExit();
 
-        private void OnDestroy() => _stateMachine.OnExit();
+        private void OnDestroy()
+        {
+            _stateMachine.OnExit();
+            _pauseService.Paused -= OnPaused;
+            _pauseService.Resumed -= OnResumed;
+        }
+
+        [Inject]
+        public void Construct(IPauseService pauseService)
+        {
+            _pauseService = pauseService;
+            _pauseService.Paused += OnPaused;
+            _pauseService.Resumed += OnResumed;
+        }
 
         private void CreateAI()
         {
             _stateMachine = (IStateMachine<StateName>)stateMachineAsset.Create(context);
             _stateMachine.OnEnter();
         }
+
+        private void OnPaused() => _stateMachine?.OnExit();
+
+        private void OnResumed() => _stateMachine?.OnEnter();
     }
 }

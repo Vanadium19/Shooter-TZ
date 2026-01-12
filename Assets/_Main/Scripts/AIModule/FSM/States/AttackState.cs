@@ -23,6 +23,7 @@ namespace AIModule.States
         public void OnEnter()
         {
             _agent ??= _blackboard.GetObject<NavMeshAgent>(BlackboardTag.NavMeshAgent);
+            _agent.isStopped = false;
         }
 
         public void OnUpdate(float deltaTime)

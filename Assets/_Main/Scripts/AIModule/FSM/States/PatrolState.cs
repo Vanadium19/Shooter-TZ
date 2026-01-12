@@ -27,6 +27,7 @@ namespace AIModule.States
         {
             _agent ??= _blackboard.GetObject<NavMeshAgent>(BlackboardTag.NavMeshAgent);
             _transform ??= _blackboard.GetObject<Transform>(BlackboardTag.Transform);
+            _agent.isStopped = false;
             _agent.destination = _points[_currentPointIndex].position;
         }
 

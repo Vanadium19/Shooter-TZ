@@ -1,5 +1,6 @@
 using CameraModule;
 using ComponentsModule;
+using CoreModule;
 using InputModule;
 using PlayerModule;
 using UnityEngine;
@@ -13,18 +14,30 @@ namespace MainModule
         private readonly ICameraMover _cameraMover;
         private readonly IInputMap _inputMap;
 
+        private readonly IPauseService _pauseService;
+
         private ICoverComponent _coverComponent;
 
-        public CameraCoverPeekController(PlayerProvider playerProvider, ICameraMover cameraMover, IInputMap inputMap)
+        public CameraCoverPeekController(PlayerProvider playerProvider,
+            ICameraMover cameraMover,
+            IInputMap inputMap,
+            IPauseService pauseService)
         {
             _playerProvider = playerProvider;
             _cameraMover = cameraMover;
             _inputMap = inputMap;
+            _pauseService = pauseService;
         }
 
         public void Initialize() => _coverComponent = _playerProvider.Get<ICoverComponent>();
 
-        public void Tick() => UpdateCoverPeekOffset();
+        public void Tick()
+        {
+            if (_pauseService.IsPaused)
+                return;
+
+            UpdateCoverPeekOffset();
+        }
 
         private void UpdateCoverPeekOffset()
         {

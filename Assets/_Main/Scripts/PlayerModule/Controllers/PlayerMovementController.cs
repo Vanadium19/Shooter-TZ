@@ -1,5 +1,7 @@
 using ComponentsModule;
+using CoreModule;
 using InputModule;
+using UnityEngine;
 using Zenject;
 
 namespace PlayerModule
@@ -12,21 +14,31 @@ namespace PlayerModule
         private readonly IRotationComponent _rotater;
         private readonly IInputMap _inputMap;
 
+        private readonly IPauseService _pauseService;
+
         public PlayerMovementController(IJumpComponent jumper,
             IMoveComponent mover,
             ICrouchComponent croucher,
             IRotationComponent rotater,
-            IInputMap inputMap)
+            IInputMap inputMap,
+            IPauseService pauseService)
         {
             _jumper = jumper;
             _mover = mover;
             _inputMap = inputMap;
+            _pauseService = pauseService;
             _rotater = rotater;
             _croucher = croucher;
         }
 
         public void Tick()
         {
+            if (_pauseService.IsPaused)
+            {
+                _mover.Move(Vector3.zero);
+                return;
+            }
+
             Move();
             Jump();
             Crouch();
@@ -56,6 +68,5 @@ namespace PlayerModule
             var angle = _inputMap.RotationAngle;
             _rotater.Rotate(angle);
         }
-
     }
 }

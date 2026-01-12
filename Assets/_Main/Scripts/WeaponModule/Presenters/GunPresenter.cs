@@ -29,7 +29,7 @@ namespace WeaponModule
             _weapon.Hit -= OnHit;
         }
 
-        private void OnUsed(Transform point) => _effectsService.Fire(EffectId.Shoot, point.position, point.rotation);
+        private void OnUsed(Transform point) => _effectsService.Fire(EffectId.Shoot, point.position, point.rotation, point);
 
         private void OnHit(Vector3 position, Vector3 normal)
         {

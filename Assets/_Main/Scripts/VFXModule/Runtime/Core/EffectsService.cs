@@ -21,7 +21,7 @@ namespace VFXModule
                 _effects[id] = new();
         }
 
-        public void Fire(EffectId effectId, Vector3 position, Quaternion rotation)
+        public void Fire(EffectId effectId, Vector3 position, Quaternion rotation, Transform parent = null)
         {
             var effects = _effects[effectId];
 
@@ -30,6 +30,9 @@ namespace VFXModule
 
             effect.gameObject.SetActive(true);
             effect.transform.SetPositionAndRotation(position, rotation);
+            
+            if (parent != null)
+                effect.transform.SetParent(parent);
 
             effect.Play();
             effect.Finished += OnEffectFinished;
@@ -47,7 +50,7 @@ namespace VFXModule
         {
             effect.gameObject.SetActive(false);
             _effects[effect.Id].Enqueue(effect);
-
+            effect.transform.SetParent(_container);
             effect.Finished -= OnEffectFinished;
         }
     }
