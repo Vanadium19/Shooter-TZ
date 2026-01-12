@@ -1,4 +1,5 @@
 using UnityEngine;
+using VFXModule;
 using Zenject;
 
 namespace WeaponModule
@@ -8,7 +9,7 @@ namespace WeaponModule
         [SerializeField] private Transform _firePoint;
         [SerializeField] private float _distance = 100f;
         [SerializeField] private LayerMask _layerMask;
-        
+
         [SerializeField] private int _damage = 10;
         [SerializeField] private float _delay = 0.5f;
 
@@ -17,6 +18,10 @@ namespace WeaponModule
             Container.BindInterfacesTo<Gun>()
                 .AsSingle()
                 .WithArguments(_firePoint, _distance, _layerMask, _damage, _delay)
+                .NonLazy();
+
+            Container.BindInterfacesTo<GunPresenter>()
+                .AsSingle()
                 .NonLazy();
         }
     }
