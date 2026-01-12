@@ -9,7 +9,7 @@ namespace PlayerModule
     {
         [Header("References")]
         [SerializeField] private Rigidbody rigidbody;
-        [SerializeField] private Entity entity;
+        [SerializeField] private Transform player;
 
         [Header("Move Settings")]
         [SerializeField] private float moveSpeed = 3f;
@@ -42,13 +42,17 @@ namespace PlayerModule
         private void OnValidate()
         {
             rigidbody ??= GetComponent<Rigidbody>();
-            entity ??= GetComponent<Entity>();
+            player ??= transform;
         }
 
         public override void InstallBindings()
         {
             Container.Bind<Rigidbody>()
                 .FromInstance(rigidbody)
+                .AsSingle();
+            
+            Container.Bind<Transform>()
+                .FromInstance(player)
                 .AsSingle();
 
             Container.BindInterfacesTo<JumpComponent>()
@@ -69,7 +73,7 @@ namespace PlayerModule
 
             Container.BindInterfacesTo<RotationComponent>()
                 .AsSingle()
-                .WithArguments(transform, rotationSensitivity);
+                .WithArguments(rotationSensitivity);
 
             Container.BindInterfacesTo<CoverComponent>()
                 .AsSingle()
@@ -82,6 +86,10 @@ namespace PlayerModule
 
             Container.BindInterfacesTo<AttackComponent>()
                 .AsSingle();
+
+            Container.Bind<PlayerTag>()
+                .AsSingle()
+                .NonLazy();
 
             Container.BindInterfacesTo<PlayerMovementController>()
                 .AsSingle()
