@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: PlayerModule::PlayerModule.PlayerInstaller
   rigidbody: {fileID: 6221537264580927670}
-  entity: {fileID: 3875314063373620731}
+  player: {fileID: 5794501645344285187}
   moveSpeed: 3
   jumpForce: 5
   jumpDelay: 1
@@ -146,7 +146,7 @@ MonoBehaviour:
   coverRadius: 0.25
   coverMask:
     serializedVersion: 2
-    m_Bits: 1025
+    m_Bits: 1
   peekDistance: 0.4
   maxHealth: 5
 --- !u!114 &3875314063373620731
@@ -283,6 +283,7 @@ GameObject:
   - component: {fileID: 743749203975823405}
   - component: {fileID: 6763351730765628603}
   - component: {fileID: 2565404568458743178}
+  - component: {fileID: 6811822302424175951}
   m_Layer: 8
   m_Name: BottomPart
   m_TagString: Untagged
@@ -382,6 +383,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6811822302424175951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4593109717315094397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 436d9aced51b4610bfd2d8baf8c8d873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: EntityModule::EntityModule.EntityProxy
+  entity: {fileID: 3875314063373620731}
 --- !u!1 &5733832656643581880
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,6 +719,7 @@ GameObject:
   - component: {fileID: 881947203999084013}
   - component: {fileID: 638415459692357847}
   - component: {fileID: 53442229492081747}
+  - component: {fileID: 770474733829368889}
   m_Layer: 8
   m_Name: UpPart
   m_TagString: Untagged
@@ -805,3 +820,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &770474733829368889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8657124156974906840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 436d9aced51b4610bfd2d8baf8c8d873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: EntityModule::EntityModule.EntityProxy
+  entity: {fileID: 3875314063373620731}
