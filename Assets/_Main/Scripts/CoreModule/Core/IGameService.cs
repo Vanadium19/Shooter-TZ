@@ -1,6 +1,6 @@
 using System;
 
-namespace RootModule
+namespace CoreModule
 {
     public interface IGameService
     {

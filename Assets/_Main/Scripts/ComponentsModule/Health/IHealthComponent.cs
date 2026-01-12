@@ -11,5 +11,6 @@ namespace ComponentsModule
         int CurrentHealth { get; }
 
         void ApplyDamage(int damage);
+        void Reset();
     }
 }

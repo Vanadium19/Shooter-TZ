@@ -40,6 +40,10 @@ namespace EnemyModule
             Container.Bind<Blackboard>()
                 .FromMethod(CreateBlackboard)
                 .AsSingle();
+
+            Container.BindInterfacesTo<EnemyLifeCycleController>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private Blackboard CreateBlackboard()

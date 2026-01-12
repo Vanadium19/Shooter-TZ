@@ -102,6 +102,10 @@ namespace PlayerModule
                 .AsSingle()
                 .NonLazy();
 
+            Container.BindInterfacesTo<PlayerRestartController>()
+                .AsSingle()
+                .NonLazy();
+
             Container.BindInterfacesTo<PlayerPresenter>()
                 .AsSingle()
                 .NonLazy();

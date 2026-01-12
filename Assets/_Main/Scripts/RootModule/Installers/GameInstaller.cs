@@ -41,14 +41,6 @@ namespace RootModule
                 .AsSingle()
                 .NonLazy();
 
-            Container.BindInterfacesTo<GameService>()
-                .AsSingle()
-                .NonLazy();
-
-            Container.BindInterfacesTo<GamePresenter>()
-                .AsSingle()
-                .NonLazy();
-
             Container.Bind<GameView>()
                 .FromInstance(gameView)
                 .AsSingle();

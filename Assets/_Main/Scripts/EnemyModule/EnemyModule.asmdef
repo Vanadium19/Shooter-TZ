@@ -1,4 +1,4 @@
 {
   "name": "EnemyModule",
-  "references":[ "GUID:0d8beb7f090555447a6cf5ce9e54dbb4", "GUID:5c8dc42b16a8482b95616a9e4eab7bc5", "GUID:3ee080d9254a47aba8b8b5c4f0975827" ]
+  "references":[ "GUID:0d8beb7f090555447a6cf5ce9e54dbb4", "GUID:5c8dc42b16a8482b95616a9e4eab7bc5", "GUID:3ee080d9254a47aba8b8b5c4f0975827", "GUID:04be4b081aa04c63ad1f536f41458771" ]
 }

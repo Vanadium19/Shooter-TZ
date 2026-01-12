@@ -38,19 +38,12 @@ namespace ComponentsModule
                 Die();
         }
 
-        private void Die()
+        public void Reset()
         {
-            // var root = GetRoot(_transform);
-            // root.gameObject.SetActive(false);
-            Died?.Invoke();
+            _currentHealth = _maxHealth;
+            HealthChanged?.Invoke(_currentHealth);
         }
 
-        // private Transform GetRoot(Transform transform)
-        // {
-        //     while (transform.parent != null)
-        //         transform = transform.parent;
-        //
-        //     return transform;
-        // }
+        private void Die() => Died?.Invoke();
     }
 }

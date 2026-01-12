@@ -9,6 +9,14 @@ namespace CoreModule
             Container.BindInterfacesTo<PauseService>()
                 .AsSingle()
                 .NonLazy();
+
+            Container.BindInterfacesTo<GameService>()
+                .AsSingle()
+                .NonLazy();
+
+            Container.BindInterfacesTo<GamePresenter>()
+                .AsSingle()
+                .NonLazy();
         }
     }
 }
