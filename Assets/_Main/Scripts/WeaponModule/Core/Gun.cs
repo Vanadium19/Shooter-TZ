@@ -10,20 +10,29 @@ namespace WeaponModule
         private readonly float _distance;
         private readonly int _layerMask;
 
+        private readonly float _delay;
         private readonly int _damage;
 
-        public Gun(Transform firePoint, float distance, LayerMask layerMask, int damage)
+        private float _lastTime;
+
+        public Gun(Transform firePoint, float distance, LayerMask layerMask, int damage, float delay)
         {
             _firePoint = firePoint;
             _distance = distance;
             _layerMask = layerMask;
             _damage = damage;
+            _delay = delay;
         }
 
-        public bool IsReady => true;
+        public bool IsReady => _lastTime + _delay < Time.time;
 
         public void Use()
         {
+            if (!IsReady)
+                return;
+
+            _lastTime = Time.time;
+
             if (!Physics.Raycast(_firePoint.position, _firePoint.forward, out var hitInfo, _distance, _layerMask))
                 return;
 

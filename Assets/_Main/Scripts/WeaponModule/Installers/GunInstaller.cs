@@ -10,12 +10,13 @@ namespace WeaponModule
         [SerializeField] private LayerMask _layerMask;
         
         [SerializeField] private int _damage = 10;
+        [SerializeField] private float _delay = 0.5f;
 
         public override void InstallBindings()
         {
             Container.BindInterfacesTo<Gun>()
                 .AsSingle()
-                .WithArguments(_firePoint, _distance, _layerMask, _damage)
+                .WithArguments(_firePoint, _distance, _layerMask, _damage, _delay)
                 .NonLazy();
         }
     }

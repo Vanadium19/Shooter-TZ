@@ -17,6 +17,10 @@ namespace EnemyModule
 
         public override void InstallBindings()
         {
+            Container.Bind<Transform>()
+                .FromInstance(enemy)
+                .AsSingle();
+
             Container.BindInterfacesTo<HealthComponent>()
                 .AsSingle()
                 .WithArguments(maxHealth)
