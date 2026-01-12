@@ -30,6 +30,12 @@ namespace PlayerModule
         [Header("Rotation Settings")]
         [SerializeField] private float rotationSensitivity = 3f;
 
+        [Header("Cover Settings")]
+        [SerializeField] private Transform coverPoint;
+        [SerializeField] private float coverRadius = 1.25f;
+        [SerializeField] private LayerMask coverMask;
+        [SerializeField] private float peekDistance = 0.4f;
+
         [Header("Health Settings")]
         [SerializeField] private int maxHealth = 5;
 
@@ -65,6 +71,10 @@ namespace PlayerModule
                 .AsSingle()
                 .WithArguments(transform, rotationSensitivity);
 
+            Container.BindInterfacesTo<CoverComponent>()
+                .AsSingle()
+                .WithArguments(coverPoint, coverRadius, coverMask, peekDistance);
+
             Container.BindInterfacesTo<HealthComponent>()
                 .AsSingle()
                 .WithArguments(maxHealth)
@@ -89,6 +99,11 @@ namespace PlayerModule
 
             Gizmos.color = Color.yellow;
             Gizmos.DrawSphere(overlapPoint.position, overlapRadius);
+
+            if (!coverPoint)
+                return;
+
+            Gizmos.DrawSphere(coverPoint.position, coverRadius);
         }
     }
 }

@@ -20,6 +20,10 @@ namespace RootModule
             Container.BindInterfacesTo<CameraCrouchController>()
                 .AsSingle()
                 .NonLazy();
+
+            Container.BindInterfacesTo<CameraCoverPeekController>()
+                .AsSingle()
+                .NonLazy();
         }
     }
 }

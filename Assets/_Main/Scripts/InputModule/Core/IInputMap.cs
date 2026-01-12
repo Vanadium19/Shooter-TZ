@@ -9,6 +9,7 @@ namespace InputModule
         float CameraAngle { get; }
         bool Jump { get; }
         bool Crouch { get; }
+        float PeekDirection { get; }
         bool Attack { get; }
     }
 }

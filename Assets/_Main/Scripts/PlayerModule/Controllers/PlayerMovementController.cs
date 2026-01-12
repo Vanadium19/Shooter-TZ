@@ -10,7 +10,6 @@ namespace PlayerModule
         private readonly IMoveComponent _mover;
         private readonly ICrouchComponent _croucher;
         private readonly IRotationComponent _rotater;
-
         private readonly IInputMap _inputMap;
 
         public PlayerMovementController(IJumpComponent jumper,
@@ -57,5 +56,6 @@ namespace PlayerModule
             var angle = _inputMap.RotationAngle;
             _rotater.Rotate(angle);
         }
+
     }
 }
