@@ -17,9 +17,9 @@ namespace ComponentsModule
 
         public void Move(Vector3 direction)
         {
-            var velocity = direction * _speed;
+            var velocity = direction.x * _rigidbody.transform.right + direction.z * _rigidbody.transform.forward;
+            velocity *= _speed;
             velocity.y = _rigidbody.linearVelocity.y;
-
 
             if (velocity.y < 0)
                 velocity.y -= FallFactor;
