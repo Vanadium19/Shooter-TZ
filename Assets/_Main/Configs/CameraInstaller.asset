@@ -15,3 +15,4 @@ MonoBehaviour:
   _sensitivity: 125
   _verticalMinAngle: -30
   _verticalMaxAngle: 30
+  peekSpeed: 8
