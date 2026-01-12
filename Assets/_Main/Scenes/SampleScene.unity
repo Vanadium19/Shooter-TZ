@@ -2299,6 +2299,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 749785120200131568, guid: aac804aed43d148099fac858a2a7cbfa, type: 3}
+      propertyPath: obstacleMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1809314905970815897, guid: aac804aed43d148099fac858a2a7cbfa, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -2354,6 +2358,10 @@ PrefabInstance:
     - target: {fileID: 2950730095894024580, guid: aac804aed43d148099fac858a2a7cbfa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974380586954861203, guid: aac804aed43d148099fac858a2a7cbfa, type: 3}
+      propertyPath: managedReferences[6388302477115785427].stoppingDistance
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4111708970039936217, guid: aac804aed43d148099fac858a2a7cbfa, type: 3}
       propertyPath: m_Layer
