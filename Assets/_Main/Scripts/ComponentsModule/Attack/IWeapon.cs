@@ -8,8 +8,6 @@ namespace ComponentsModule
         event Action<Transform> Used;
         event Action<Vector3, Vector3> Hit;
 
-        bool IsReady { get; }
-
         void Use();
     }
 }

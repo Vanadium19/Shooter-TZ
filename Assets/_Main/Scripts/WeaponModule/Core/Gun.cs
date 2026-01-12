@@ -7,38 +7,49 @@ namespace WeaponModule
 {
     public class Gun : IWeapon
     {
-        private readonly Transform _firePoint;
-        private readonly float _distance;
-        private readonly int _layerMask;
+        private readonly GunData _data;
 
-        private readonly float _delay;
-        private readonly int _damage;
+        private float _lastFireTime;
 
-        private float _lastTime;
+        private float _reloadEndTime;
+        private bool _isReloading;
+        private int _currentAmmo;
 
         public event Action<Transform> Used;
         public event Action<Vector3, Vector3> Hit;
 
-        public Gun(Transform firePoint, float distance, LayerMask layerMask, int damage, float delay)
+        public Gun(GunData data)
         {
-            _firePoint = firePoint;
-            _distance = distance;
-            _layerMask = layerMask;
-            _damage = damage;
-            _delay = delay;
+            _data = data;
+            _currentAmmo = _data.MagazineSize;
         }
-
-        public bool IsReady => _lastTime + _delay < Time.time;
 
         public void Use()
         {
-            if (!IsReady)
+            if (_isReloading && Time.time >= _reloadEndTime)
+                EndReload();
+            
+            if (_isReloading)
                 return;
 
-            _lastTime = Time.time;
-            Used?.Invoke(_firePoint);
+            if (_lastFireTime + _data.ShootDelay > Time.time)
+                return;
 
-            if (!Physics.Raycast(_firePoint.position, _firePoint.forward, out var hitInfo, _distance, _layerMask))
+            Shoot();
+
+            if (_currentAmmo <= 0)
+                Reload();
+        }
+
+        private void Shoot()
+        {
+            _lastFireTime = Time.time;
+            _currentAmmo--;
+
+            var firePoint = _data.FirePoint;
+            Used?.Invoke(firePoint);
+
+            if (!Physics.Raycast(firePoint.position, firePoint.forward, out var hitInfo, _data.Distance, _data.LayerMask))
                 return;
 
             if (!hitInfo.collider.TryGetComponent<IEntity>(out var entity))
@@ -48,7 +59,19 @@ namespace WeaponModule
                 return;
 
             Hit?.Invoke(hitInfo.point, hitInfo.normal);
-            health.ApplyDamage(_damage);
+            health.ApplyDamage(_data.Damage);
+        }
+
+        private void Reload()
+        {
+            _isReloading = true;
+            _reloadEndTime = Time.time + _data.ReloadingTime;
+        }
+
+        private void EndReload()
+        {
+            _isReloading = false;
+            _currentAmmo = _data.MagazineSize;
         }
     }
 }

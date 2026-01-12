@@ -6,18 +6,13 @@ namespace WeaponModule
 {
     public class GunInstaller : MonoInstaller
     {
-        [SerializeField] private Transform _firePoint;
-        [SerializeField] private float _distance = 100f;
-        [SerializeField] private LayerMask _layerMask;
-
-        [SerializeField] private int _damage = 10;
-        [SerializeField] private float _delay = 0.5f;
+        [SerializeField] private GunData _gunData;
 
         public override void InstallBindings()
         {
             Container.BindInterfacesTo<Gun>()
                 .AsSingle()
-                .WithArguments(_firePoint, _distance, _layerMask, _damage, _delay)
+                .WithArguments(_gunData)
                 .NonLazy();
 
             Container.BindInterfacesTo<GunPresenter>()

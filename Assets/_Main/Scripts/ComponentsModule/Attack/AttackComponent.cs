@@ -14,9 +14,6 @@ namespace ComponentsModule
             if (_weapon == null)
                 return;
 
-            if (!_weapon.IsReady)
-                return;
-
             _weapon.Use();
         }
     }

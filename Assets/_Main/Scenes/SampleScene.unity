@@ -2403,6 +2403,10 @@ PrefabInstance:
       propertyPath: _delay
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6363835325233287834, guid: aac804aed43d148099fac858a2a7cbfa, type: 3}
+      propertyPath: _gunData._reloadingTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6572236023248063983, guid: aac804aed43d148099fac858a2a7cbfa, type: 3}
       propertyPath: m_Layer
       value: 11
@@ -2454,14 +2458,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 777288594811779053, guid: 0a31491dc4d01422c81786974d71fbbd, type: 3}
+      propertyPath: _gunData._damage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 777288594811779053, guid: 0a31491dc4d01422c81786974d71fbbd, type: 3}
+      propertyPath: _gunData._reloadingTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1994557509548399578, guid: 0a31491dc4d01422c81786974d71fbbd, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2341000248225222205, guid: 0a31491dc4d01422c81786974d71fbbd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5311807078288358389, guid: 0a31491dc4d01422c81786974d71fbbd, type: 3}
       propertyPath: _view
       value: 
       objectReference: {fileID: 2103555883}
+    - target: {fileID: 5311807078288358389, guid: 0a31491dc4d01422c81786974d71fbbd, type: 3}
+      propertyPath: coverRadius
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5311807078288358389, guid: 0a31491dc4d01422c81786974d71fbbd, type: 3}
       propertyPath: rotationSensitivity
       value: 150
