@@ -8,22 +8,30 @@ namespace AIModule.States
     public class AttackState : IState
     {
         private readonly Blackboard _blackboard;
+
         private readonly IAttackComponent _attacker;
+        private readonly ITargetRotationComponent _rotator;
+
         private readonly float _stoppingDistance;
 
         private NavMeshAgent _agent;
 
-        public AttackState(Blackboard blackboard, IAttackComponent attacker, float stoppingDistance)
+        public AttackState(Blackboard blackboard,
+            IAttackComponent attacker,
+            ITargetRotationComponent rotator,
+            float stoppingDistance)
         {
             _blackboard = blackboard;
             _attacker = attacker;
             _stoppingDistance = stoppingDistance;
+            _rotator = rotator;
         }
 
         public void OnEnter()
         {
             _agent ??= _blackboard.GetObject<NavMeshAgent>(BlackboardTag.NavMeshAgent);
             _agent.isStopped = false;
+            _agent.updateRotation = false;
         }
 
         public void OnUpdate(float deltaTime)
@@ -36,6 +44,7 @@ namespace AIModule.States
             else
                 SetDestination(target);
 
+            _rotator.Rotate(target.position);
             _attacker.Attack();
         }
 
@@ -45,6 +54,7 @@ namespace AIModule.States
                 return;
 
             _agent.isStopped = true;
+            _agent.updateRotation = true;
         }
 
         private void SetDestination(Transform target)

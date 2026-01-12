@@ -2303,6 +2303,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2054938924386263925, guid: aac804aed43d148099fac858a2a7cbfa, type: 3}
+      propertyPath: rotationSpeed
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2615682935206940921, guid: aac804aed43d148099fac858a2a7cbfa, type: 3}
       propertyPath: m_Layer
       value: 11

@@ -15,6 +15,9 @@ namespace EnemyModule
         [Header("Health Settings")]
         [SerializeField] private int maxHealth = 5;
 
+        [Header("Rotation Settings")]
+        [SerializeField] private float rotationSpeed = 5f;
+
         public override void InstallBindings()
         {
             Container.Bind<Transform>()
@@ -24,6 +27,11 @@ namespace EnemyModule
             Container.BindInterfacesTo<HealthComponent>()
                 .AsSingle()
                 .WithArguments(maxHealth)
+                .NonLazy();
+
+            Container.BindInterfacesTo<TargetRotationComponent>()
+                .AsSingle()
+                .WithArguments(rotationSpeed)
                 .NonLazy();
 
             Container.BindInterfacesTo<AttackComponent>()
