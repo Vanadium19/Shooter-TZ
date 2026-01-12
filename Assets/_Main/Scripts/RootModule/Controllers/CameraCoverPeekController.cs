@@ -12,41 +12,27 @@ namespace MainModule
         private readonly PlayerProvider _playerProvider;
         private readonly ICameraMover _cameraMover;
         private readonly IInputMap _inputMap;
-        private readonly float _peekDistance;
-        private readonly float _peekSpeed;
 
         private ICoverComponent _coverComponent;
-        private Vector3 _currentOffset;
 
-        public CameraCoverPeekController(PlayerProvider playerProvider, ICameraMover cameraMover, IInputMap inputMap,
-            float peekDistance, float peekSpeed)
+        public CameraCoverPeekController(PlayerProvider playerProvider, ICameraMover cameraMover, IInputMap inputMap)
         {
             _playerProvider = playerProvider;
             _cameraMover = cameraMover;
             _inputMap = inputMap;
-            _peekDistance = peekDistance;
-            _peekSpeed = peekSpeed;
         }
 
-        public void Initialize()
+        public void Initialize() => _coverComponent = _playerProvider.Get<ICoverComponent>();
+
+        public void Tick() => UpdateCoverPeekOffset();
+
+        private void UpdateCoverPeekOffset()
         {
-            _coverComponent = _playerProvider.Get<ICoverComponent>();
-        }
+            var targetOffset = _coverComponent.IsCoverNearby
+                ? _coverComponent.PeekDistance * _inputMap.PeekDirection * Vector3.right
+                : Vector3.zero;
 
-        public void Tick()
-        {
-            _coverComponent.UpdateCoverState();
-            var targetOffset = Vector3.zero;
-
-            if (_coverComponent.IsCoverNearby)
-            {
-                var direction = _inputMap.PeekDirection;
-                if (!Mathf.Approximately(direction, 0f))
-                    targetOffset = Vector3.right * (_peekDistance * Mathf.Sign(direction));
-            }
-
-            _currentOffset = Vector3.Lerp(_currentOffset, targetOffset, _peekSpeed * Time.deltaTime);
-            _cameraMover.SetOffset(_currentOffset);
+            _cameraMover.SetOffset(targetOffset);
         }
     }
 }

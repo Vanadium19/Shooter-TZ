@@ -1,34 +1,43 @@
+using System.Buffers;
 using UnityEngine;
+using Zenject;
 
 namespace ComponentsModule
 {
-    public class CoverComponent : ICoverComponent
+    public class CoverComponent : ICoverComponent, IFixedTickable
     {
-        private readonly Transform _origin;
-        private readonly float _checkDistance;
-        private readonly LayerMask _coverMask;
+        private const int ColliderBufferSize = 2;
 
-        public CoverComponent(Transform origin, float checkDistance, LayerMask coverMask)
+        private readonly Transform _point;
+        private readonly float _radius;
+        private readonly int _mask;
+
+        private readonly float _peekDistance;
+
+        private bool _isCoverNearby;
+
+        public CoverComponent(Transform point, float radius, LayerMask mask, float peekDistance)
         {
-            _origin = origin;
-            _checkDistance = checkDistance;
-            _coverMask = coverMask;
+            _point = point;
+            _radius = radius;
+            _mask = mask;
+            _peekDistance = peekDistance;
         }
 
-        public bool IsCoverNearby { get; private set; }
-        public Vector3 CoverNormal { get; private set; }
+        public float PeekDistance => _peekDistance;
+        public bool IsCoverNearby => _isCoverNearby;
 
-        public void UpdateCoverState()
+        public void FixedTick() => UpdateCoverState();
+
+        private void UpdateCoverState()
         {
-            if (!Physics.Raycast(_origin.position, _origin.forward, out var hit, _checkDistance, _coverMask))
-            {
-                IsCoverNearby = false;
-                CoverNormal = Vector3.zero;
-                return;
-            }
+            var arrayPool = ArrayPool<Collider>.Shared;
+            var colliders = arrayPool.Rent(ColliderBufferSize);
 
-            IsCoverNearby = true;
-            CoverNormal = hit.normal;
+            var size = Physics.OverlapSphereNonAlloc(_point.position, _radius, colliders, _mask);
+            _isCoverNearby = size > 0;
+
+            arrayPool.Return(colliders);
         }
     }
 }

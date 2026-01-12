@@ -31,9 +31,10 @@ namespace PlayerModule
         [SerializeField] private float rotationSensitivity = 3f;
 
         [Header("Cover Settings")]
-        [SerializeField] private Transform coverOrigin;
-        [SerializeField] private float coverCheckDistance = 1.25f;
+        [SerializeField] private Transform coverPoint;
+        [SerializeField] private float coverRadius = 1.25f;
         [SerializeField] private LayerMask coverMask;
+        [SerializeField] private float peekDistance = 0.4f;
 
         [Header("Health Settings")]
         [SerializeField] private int maxHealth = 5;
@@ -42,7 +43,6 @@ namespace PlayerModule
         {
             rigidbody ??= GetComponent<Rigidbody>();
             entity ??= GetComponent<Entity>();
-            coverOrigin ??= transform;
         }
 
         public override void InstallBindings()
@@ -73,7 +73,7 @@ namespace PlayerModule
 
             Container.BindInterfacesTo<CoverComponent>()
                 .AsSingle()
-                .WithArguments(coverOrigin, coverCheckDistance, coverMask);
+                .WithArguments(coverPoint, coverRadius, coverMask, peekDistance);
 
             Container.BindInterfacesTo<HealthComponent>()
                 .AsSingle()
@@ -99,6 +99,11 @@ namespace PlayerModule
 
             Gizmos.color = Color.yellow;
             Gizmos.DrawSphere(overlapPoint.position, overlapRadius);
+
+            if (!coverPoint)
+                return;
+
+            Gizmos.DrawSphere(coverPoint.position, coverRadius);
         }
     }
 }
