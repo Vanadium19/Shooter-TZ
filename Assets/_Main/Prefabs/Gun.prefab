@@ -81,7 +81,7 @@ MonoBehaviour:
     _distance: 100
     _layerMask:
       serializedVersion: 2
-      m_Bits: 1280
+      m_Bits: 1281
     _reloadingTime: 4
     _magazineSize: 3
     _shootDelay: 0.5

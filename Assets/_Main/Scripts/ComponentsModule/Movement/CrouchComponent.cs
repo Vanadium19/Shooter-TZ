@@ -35,7 +35,7 @@ namespace ComponentsModule
                 return;
 
             _isCrouching = true;
-            _upPart.gameObject.SetActive(true);
+            _upPart.gameObject.SetActive(false);
             Crouched?.Invoke();
         }
 
@@ -45,7 +45,7 @@ namespace ComponentsModule
                 return;
 
             _isCrouching = false;
-            _upPart.gameObject.SetActive(false);
+            _upPart.gameObject.SetActive(true);
             Uncrouched?.Invoke();
         }
     }

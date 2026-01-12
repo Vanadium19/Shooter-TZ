@@ -2458,6 +2458,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 434479175480329140, guid: 0a31491dc4d01422c81786974d71fbbd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 777288594811779053, guid: 0a31491dc4d01422c81786974d71fbbd, type: 3}
       propertyPath: _gunData._damage
       value: 2
