@@ -1,5 +1,5 @@
 using ComponentsModule;
-using EntityModule;
+using UIModule;
 using UnityEngine;
 using Zenject;
 
@@ -39,6 +39,9 @@ namespace PlayerModule
         [Header("Health Settings")]
         [SerializeField] private int maxHealth = 5;
 
+        [Header("UI References")]
+        [SerializeField] private HealthView _view;
+
         private void OnValidate()
         {
             rigidbody ??= GetComponent<Rigidbody>();
@@ -50,7 +53,7 @@ namespace PlayerModule
             Container.Bind<Rigidbody>()
                 .FromInstance(rigidbody)
                 .AsSingle();
-            
+
             Container.Bind<Transform>()
                 .FromInstance(player)
                 .AsSingle();
@@ -98,6 +101,14 @@ namespace PlayerModule
             Container.BindInterfacesTo<PlayerAttackController>()
                 .AsSingle()
                 .NonLazy();
+
+            Container.BindInterfacesTo<PlayerPresenter>()
+                .AsSingle()
+                .NonLazy();
+
+            Container.Bind<HealthView>()
+                .FromInstance(_view)
+                .AsSingle();
         }
 
         private void OnDrawGizmos()

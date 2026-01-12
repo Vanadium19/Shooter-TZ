@@ -5,6 +5,7 @@ namespace ComponentsModule
 {
     public class HealthComponent : IHealthComponent
     {
+        private readonly Transform _transform;
         private readonly int _maxHealth;
 
         private int _currentHealth;
@@ -12,11 +13,15 @@ namespace ComponentsModule
         public event Action<int> HealthChanged;
         public event Action Died;
 
-        public HealthComponent(int maxHealth)
+        public HealthComponent(Transform transform, int maxHealth)
         {
+            _transform = transform;
             _maxHealth = maxHealth;
             _currentHealth = maxHealth;
         }
+
+        public int CurrentHealth => _currentHealth;
+        public int MaxHealth => _maxHealth;
 
         public void ApplyDamage(int damage)
         {
@@ -35,8 +40,17 @@ namespace ComponentsModule
 
         private void Die()
         {
-            Debug.Log("Entity died.");
+            // var root = GetRoot(_transform);
+            // root.gameObject.SetActive(false);
             Died?.Invoke();
         }
+
+        // private Transform GetRoot(Transform transform)
+        // {
+        //     while (transform.parent != null)
+        //         transform = transform.parent;
+        //
+        //     return transform;
+        // }
     }
 }

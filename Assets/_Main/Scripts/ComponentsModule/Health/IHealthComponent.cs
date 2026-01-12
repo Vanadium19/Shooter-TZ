@@ -7,6 +7,9 @@ namespace ComponentsModule
         event Action<int> HealthChanged;
         event Action Died;
 
+        int MaxHealth { get; }
+        int CurrentHealth { get; }
+
         void ApplyDamage(int damage);
     }
 }
