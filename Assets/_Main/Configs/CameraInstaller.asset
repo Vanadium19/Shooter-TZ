@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a95fd3123e84feaa2a2e9f6390717b6, type: 3}
+  m_Name: CameraInstaller
+  m_EditorClassIdentifier: CameraModule::CameraModule.CameraInstaller
+  _sensitivity: 125
+  _verticalMinAngle: -30
+  _verticalMaxAngle: 30
+  peekSpeed: 8
