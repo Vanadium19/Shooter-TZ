@@ -446,6 +446,20 @@ public class Mover : MonoBehaviour
 
 ---
 
+### 10.6 Не использовать `UnityAction`, использовать `Action`
+
+**Хорошо**
+```csharp
+public event Action<int> HealthChanged;
+```
+
+**Плохо**
+```csharp
+public event UnityAction<int> HealthChanged;
+```
+
+---
+
 ## 11) Асинхронщина (если используете)
 
 - Суффикс `Async`: `LoadDataAsync()`
